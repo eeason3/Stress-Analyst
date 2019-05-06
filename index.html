@@ -90,7 +90,6 @@ function start_look()
 
 function give_plan()
 {	stress_level1 = document.all['stress1'].value * 1;
-	send_results1();
 	n.innerHTML = "<p>You're feeling "+stress_grades[stress_level1]+".  OK, what we're going to do is work out what it is about what just happened that is making you feel "+stress_grades[stress_level1]+", then we're going to analyse it so that the stress hormones stop flowing.</p><p>You'll feel better, but not fine.  That's because you already have stress hormones in your blood.  So, we'll finish by planning some things you can do today to clear them out.  When you've done those things you'll feel much better.</p><p>Before we go any further, look around now and see if you are in any immediate PHYSICAL danger. Is there any need to run or fight?</p><p>If there is, then get up now! However, it's more likely that there is no real immediate physical danger. You don't need to make any kind of intense physical effort right now, and that's the key point.</p><p>Just noticing that may have helped you feel just a bit better. Now let's build on that.</p><p>What kind of thing was it that happened?  Select the best description then click Next.</p><select id='event_type'><option selected value=0>Failing despite great effort<option value=1>An unpleasant encounter with someone<option selected value=2>Realising I am in a bad situation<option value=3>A humiliation or embarrassment<option value=4>Some other disappointment or setback</select>&nbsp;<button onclick='explain_cue();'>&nbsp;Next&nbsp;</button>";
 }
 
@@ -306,7 +305,6 @@ function stresscheck2()
 
 function clean_up()
 {	stress_level2 = document.all['stress2'].value * 1;
-	send_results2();
 	if (stress_level2 < stress_level1) 
 	{	n.innerHTML = "<p>That's encouraging.  Your stress level seems to be down already.</p>";
 	}
@@ -330,7 +328,6 @@ function send_results2()
 
 function good_bye()
 {	stress_level3 = document.all['stress3'].value * 1;
-	send_results3();
 	var link_text = "";
 	link_text = "<p>Links:<br><br><a href='http://www.relaxonline.me.uk/sa1/index.html'>Start this again</a><br><br><a href='http://www.relaxonline.me.uk/'>Relax Online homepage</a><br><br><a href='http://www.workinginuncertainty.co.uk/omrealism.shtml'>An article about optimism, pessimism, and open-minded realism<br><br><a href='http://www.workinginuncertainty.co.uk/index.shtml'>Read about the author and his day job</a></p>";
 	if (stress_level3 < stress_level1 || stress_level3 == 0) 
