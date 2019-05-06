@@ -1,0 +1,355 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Relax Online - Stress Analyst</title>
+	<META NAME="DESCRIPTION" CONTENT="Matthew Leitch's stress management and relaxation site - stress analyst">
+	<META NAME="KEYWORDS" CONTENT="stress management, relaxation, rest, stress relief">
+	<style type="text/css">
+  body { margin-left: 0%; margin-right: 0%; font-family: Times New Roman, Arial, sans-serif; }
+  h1,h2,h3,h4,h5,h6 { margin-left: 0%; color: rgb(105,105,105) }
+  pre { color: green; font-weight: bold; white-space: pre; font-family: "Courier New", monospace; }
+  tt { color: green }
+  em { font-style: italic; font-weight: bold }
+  strong { font-weight: bold }
+  .navbar { text-align: center }
+  div.box { border: solid; border-width: thin; width: 100%; padding: 0.2em; }
+  div.color { background-color: rgb(204,204,255); padding: 0.5em; border: none; width: 100%; }
+  pre.bad { color: rgb(192, 101, 101) }
+  p.changed { padding-left: 0.2em; border-left: solid; border-top: none; border-bottom: none; border-right: none; border-left-width: thin; border-color: red; }
+.example {margin-left: +3%;font-size:90%;}
+  .dropcap { float: left; font: bold 1.4em "Times New Roman", serif; color: rgb(51, 0, 102); background: rgb(255, 255, 153); }
+  table { margin-left: 0%; margin-right: 0%; font-family: sans-serif; font-size: 100%; background: white; border-width: 2px; border-color: white; }
+  td { font-family: "Arial", sans-serif; font-size: 100% }
+  td.shaded { background: rgb(255, 255, 153) }
+  th.shaded { background: rgb(204, 204, 153) }
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#330099" vlink="#993399" alink="#CC0066">
+
+<form name="sa_1" action="http://www.surveys.managedluck.co.uk/cgis/stresslogmail.pl" method="POST">
+<input type="hidden" name="subject" value="Stress Analyst">
+<!--<input type="hidden" name="success_page" value="http://www.learningideas.me.uk/feedback/success.html">-->
+<input type='hidden' name='s_check_1'>
+<input type='hidden' name='s_check_2'>
+<input type='hidden' name='s_check_3'>
+
+
+<table rules="NONE" cellspacing="0" cellpadding="16" border="0" width="100%">
+<tr>
+	<td width="5%">&nbsp;</td>
+	<td width="90%" colspan="2" valign="Center">
+	<p><font face="arial" color="#000096" size=5><b>Stress Analyst</b></font></p>
+	</td>
+	<td width="5%">&nbsp;</td>
+</tr>
+<tr>
+	<td width="5%">&nbsp;</td>
+	<td width="47%" id='txt' valign=top>
+<p>If you've just had a stressful experience then this interactive page will help you calm down and get over it. It will guide you through a process of analysing away your stress.</p>
+<p>Your use of this program is completely anonymous, but for research purposes, your ratings of your own stress levels are sent back for analysis. The data so far show that many people are helped by the program.</p>
+<p>Now decide if you want help with a stressful event that just happened or you are just having a look.</p>
+
+<p><input type='button' value=' Calm me now ' onclick='start_real();'>&nbsp;&nbsp;<input type='button' value=' Just looking ' onclick='start_look();'></p>
+	</td>
+	<td width="48%" valign=top>
+<div><img src="treepath.jpg"></div>
+	</td>
+	<td width="5%">&nbsp;</td>
+</tr>
+</table>
+&nbsp; <font color="red" font size="-3">Words &copy; 2004, 2007, 2008, 2013 Matthew Leitch</font><br>
+
+</form>
+
+<SCRIPT language=JavaScript1.2><!--
+
+var saved_text = ""; // used for saving introductory text when not used on screen
+var n = document.getElementById("txt");  // object for text display
+var real = 1;      // real user or just looking?
+var stress_level1 = 0; // for first stress level indicated
+var stress_level2 = 0; // for second stress level indicated
+var stress_level3 = 0; // for third stress level indicated
+stress_grades = new Array("calm","slightly worried", "anxious", "stressed", "panicky", "frantic");
+var event_type = 0;  // event type
+event_types = new Array("failed despite great effort","had an unpleasant encounter with someone","realised you are in a bad situation","had a humiliation or embarrassment","had a disappointment or setback");
+
+function start_real()
+{
+	real = 1;
+	n.innerHTML = "<p>Hi. Sorry to hear you've just had a stressful experience. The first thing we need to do is record how stressed you feel.</p><p>How stressed are you feeling right now?  (Choose a stress level and click Next)</p><select id='stress1'><option selected value=0>Calm<option value=1>Slightly worried<option value=2>Anxious<option value=3>Stressed<option value=4>Panicky<option value=5>Frantic</select>&nbsp;<button onclick='give_plan();'>&nbsp;Next&nbsp;</button>";
+}
+
+function start_look()
+{
+	real = 0;
+	n.innerHTML = "<p>OK, just PRETEND you've had a stressful experience and answer as if it was real. Your responses won't be used in data to improve this program.</p><p>The first thing to do is record how stress you feel (i.e. imaginary stress of course).</p><p>How stressed are you feeling right now?  (Choose a stress level and click Next)</p><select id='stress1'><option selected value=0>Calm<option value=1>Slightly worried<option value=2>Anxious<option value=3>Stressed<option value=4>Panicky<option value=5>Frantic</select>&nbsp;<button onclick='give_plan();'>&nbsp;Next&nbsp;</button>";
+}
+
+function give_plan()
+{	stress_level1 = document.all['stress1'].value * 1;
+	send_results1();
+	n.innerHTML = "<p>You're feeling "+stress_grades[stress_level1]+".  OK, what we're going to do is work out what it is about what just happened that is making you feel "+stress_grades[stress_level1]+", then we're going to analyse it so that the stress hormones stop flowing.</p><p>You'll feel better, but not fine.  That's because you already have stress hormones in your blood.  So, we'll finish by planning some things you can do today to clear them out.  When you've done those things you'll feel much better.</p><p>Before we go any further, look around now and see if you are in any immediate PHYSICAL danger. Is there any need to run or fight?</p><p>If there is, then get up now! However, it's more likely that there is no real immediate physical danger. You don't need to make any kind of intense physical effort right now, and that's the key point.</p><p>Just noticing that may have helped you feel just a bit better. Now let's build on that.</p><p>What kind of thing was it that happened?  Select the best description then click Next.</p><select id='event_type'><option selected value=0>Failing despite great effort<option value=1>An unpleasant encounter with someone<option selected value=2>Realising I am in a bad situation<option value=3>A humiliation or embarrassment<option value=4>Some other disappointment or setback</select>&nbsp;<button onclick='explain_cue();'>&nbsp;Next&nbsp;</button>";
+}
+
+function send_results1()
+{	document.sa_1.s_check_1.value = stress_level1;
+	if (real == 1)
+	{
+		document.sa_1.submit();
+	}
+}
+
+function explain_cue()
+{	event_type = document.all['event_type'].value;
+	var example = "";
+	if (event_type == 0) example += "When you realised you were failing your brain immediately deduced that to achieve the results you wanted you would have to make an extra effort";
+	if (event_type == 1) example += "During your unpleasant encounter your brain probably picked up plenty of clues that you were going to have to make more effort to get through the rest of the conversation, and that things were going to be more difficult for you afterwards";
+	if (event_type == 2) example += "When you realised you were in a bad situation your brain immediately realised that getting out of it was going to involve some kind of effort";
+	if (event_type == 3) example += "When you realised you were in an embarrassing situation you brain immediately recognised that some extra effort might be needed to get out of it, and that more effort would be needed to repair the social and other damage resulting";
+	if (event_type == 4) example += "When you became aware of your setback your brain immediately deduced that an extra effort would be needed to recover";
+	example += ".";
+	n.innerHTML = "<p>Thank you.  So you "+event_types[event_type] + ".  Let's first understand why that set off a fight or flight response, though maybe not an intense one.</p><p>"+example+"</p><p>It knew extra effort would be needed but it didn't know what you would actually have to do or when. Working that out comes later. Your brain almost always recognises a challenge exists before it knows what to do about it.</p><p>The trouble is that it immediately geared up your body for an immediate, intense, physical effort <b>just in case</b> it was needed.</p><p>This mechanism evolved when our everyday challenges really did involve running away or fighting.</p><p>Click Next when you are ready to move on.</p><button onclick='effort_analysis();'>&nbsp;Next&nbsp;</button>";
+}
+
+function effort_analysis()
+{
+	n.innerHTML = "<p>The event is over so your continuing stress comes from your brain's continued worry that <b>some kind</b> of fighting or running could still be needed. What we're going to do now is establish clearly and beyond reasonable doubt that an immediate, intense, physical effort is not needed, even if some kind of extra effort still is. Your stress response should switch off as it becomes clear that it is not needed and this was just another false alarm.</p><p>If you think back to the event that got you stressed you will find that you received information suggesting one or more of these.  (Click all that apply then click Next to move on.)</p><p><input type='checkbox' id='ecue1'><label for='ecue1'>I'm in a worse situation than I thought e.g. reputation damaged, less well thought of, less money.</label></p><p><input type='checkbox' id='ecue2'><label for='ecue2'>I've got less time than expected.</label></p><p><input type='checkbox' id='ecue3'><label for='ecue3'>I may be less capable than I thought e.g. less desirable, less clever, slower</label></p><p><input type='checkbox' id='ecue4'><label for='ecue4'>A competitor is in a better position than I realised.</label></p><p><input type='checkbox' id='ecue5'><label for='ecue5'>A competitor is more capable than I thought</label></p><p><input type='checkbox' id='ecue6'><label for='ecue6'>A lot has changed.</label></p><p><input type='checkbox' id='ecue7'><label for='ecue7'>For some other reason there's more to do than I imagined.</label></p><button onclick='think_entry();'>&nbsp;Next&nbsp;</button>";
+}
+
+// think
+function think_entry()
+{
+	n.innerHTML = "<p>See what I mean?</p><p>Whatever the cues suggesting to your brain that some kind of extra effort is needed, the end result is stressful gearing up, <i>until we can confirm that fight or flight is not needed</i>.</p><p>In the next section let's consider several types of action, whether they might be relevant, and whether there is any chance that an adrenaline boost would help you.  The chances are it won't, but we need to confirm this in detail so you are convinced.  Here's the first action type to consider:</p><p>Is it possible that extra thinking is required (e.g. to work out what it all means, to think what to do, to find a way out)?</p><p><button onclick='think_adren();'>&nbsp;Yes&nbsp;</button>&nbsp;<button onclick='action_list();'>&nbsp;No&nbsp;</button></p>";
+}
+
+function think_adren()
+{	n.innerHTML = "<p>Do you think there is any chance at all that a jolt of adrenaline might help you work out the answers to your problems?</p><p>Think carefully before you answer.  You may believe that some kind of 'pressure' helps you to focus and associate this with adrenaline driven stress feelings.</p><p><button onclick='think_choice();'>&nbsp;Yes&nbsp;</button>&nbsp;<button onclick='think_right();'>&nbsp;No&nbsp;</button></p>";
+}
+
+function think_choice()
+{	n.innerHTML = "<p>Which state is best for thinking through your problems?  (Choose one then click Next to move on.)</p><p><input type='radio' name='t_choice' id='t_ch1' value=0><label for='t_ch1'>Narrow focus, inflexible thinking, relying on old habits even if they have failed in the past, unable to handle complexity, long term memory briefly improved but falling below normal performance after around 30 minutes.  (This is the fight or flight state.)</label></p><p><input type='radio' name='t_choice' id='t_ch2' value=0><label for='t_ch2'>Alert but calm, focused on the topic, patient, persistent, open minded and flexible, wide situational awareness, insightful, creative, thoughtful.  (Giving time and attention without the fight or flight rush.)</label></p><button onclick='think_respond();'>&nbsp;Next&nbsp;</button>";  // XXX make one a default
+}
+
+function think_respond()
+{
+	if (document.all['t_ch1'].checked)
+	{	n.innerHTML = "<p>That's surely wrong.  You may feel you need pressure to get you to focus on the problem but that doesn't mean being stressed out.  Your thinking will be much more productive if you let go of that idea and just concentrate on giving time and attention to the problem.  Be patient and persistent.</p>";
+	}
+	else
+	{	n.innerHTML = "<p>Right.  Your thinking will be much more productive if you just concentrate on giving time and attention to the problem.  Be patient and persistent.</p>";
+	}
+	n.innerHTML += "<p>And, did you know that long term exposure to stress hormones causes your brain cells to wither and could affect your memory in old age?</p><p>Click Next to move on.</p><button onclick='think_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function think_right()
+{	n.innerHTML = "<p>Right.  Your thinking will be much more productive if you just concentrate on giving time and attention to the problem.  Be patient and persistent.</p><p>And, did you know that long term exposure to stress hormones causes your brain cells to wither and could affect your memory in old age?</p>";
+	n.innerHTML += "<p>Click Next to move on.</p><button onclick='think_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function think_exit()
+{	action_list();
+}
+
+// action list
+function action_list()
+{	n.innerHTML = "<p>Here are some other types of action you might have to take to respond to that recent event.  Click on one that seems relevant or click to move on to the next stage.  (You will be able to keep on selecting from this list until you are ready to move on.)</p><p><button onclick='social_entry();'>Analyse</button> &nbsp; Talk/interact with one or more people</p><p><button onclick='work_entry();'>Analyse</button> &nbsp; Do extra work</p><p><button onclick='speed_entry();'>Analyse</button> &nbsp; Speed up</p><p><button onclick='other_entry();'>Analyse</button> &nbsp; Compensate for falling behind on other things</p><p><button onclick='pain_entry();'>Analyse</button> &nbsp; Endure pain</p><button onclick='stresscheck2();'>&nbsp;Next stage&nbsp;</button>";
+}
+
+// social
+function social_entry()
+{	social_immed();
+}
+
+function social_immed()
+{	n.innerHTML = "<p>Is there any chance that this interpersonal action will be needed in the next 30 seconds?</p><button onclick='social_reroute();'>&nbsp;Yes&nbsp;</button>&nbsp;<button onclick='social_iipe();'>&nbsp;No&nbsp;</button>";
+}
+
+function social_reroute()
+{	n.innerHTML = "<p>Uh oh!  You'd better get off this computer and get to it!  However, if you would rather continue with this analysis then just click Next.</p><button onclick='social_iipe();'>&nbsp;Next&nbsp;</button>";
+}
+
+function social_iipe()
+{	n.innerHTML = "<p>Since there's no need for any effort immediately there's surely no point in an adrenaline rush now so calm down. This is the key point. There is no need for an intense, physical effort, right now. You're not going to fight or run away. More likely you're just sitting at a computer and your next action will be to carry on sitting.</p><p>Thinking ahead, is it possible that, when you do whatever it is, you might need to fight or run away?  What are the chances of an intense, physical effort being needed from you in connection with this interpersonal action in the future? <select id='social1'><option selected value=0>Certain<option value=1>1 in 2<option value=2>1 in 5<option value=3>1 in 10<option value=4>1 in 100<option value=5>1 in 1,000<option value=6>1 in 1,000,000<option value=7>None</select>&nbsp;<button onclick='social_manage();'>&nbsp;Next&nbsp;</button>"
+}
+
+function social_manage()
+{	var social_risk = document.all['social1'].value * 1;
+	if (social_risk < 5)
+	{	n.innerHTML = "<p>Since there is at least a chance of having to run or fight in this future situation, let's consider some ways to reduce that risk.</p><p>First of all, think about what you might do to minimise the risk.  Check all that might apply.  Then, reconsider the chance of having to run or fight.</p><p><input type='checkbox' id='soc1'><label for='soc1'>Phone or write instead</label></p><p><input type='checkbox' id='soc2'><label for='soc2'>Take a supportive person along with you</label></p><p><input type='checkbox' id='soc3'><label for='soc3'>Decide a contingency action that will avoid escalating matters if it starts to get nasty</label></p><p><input type='checkbox' id='soc4'><label for='soc4'>Avoid the most risky subjects/people, at least for now</label></p><p>Now, what are the chances of an intense, physical effort being needed from you in connection with this interpersonal action? <select id='social2'><option selected value=0>Certain<option value=1>1 in 2<option value=2>1 in 5<option value=3>1 in 10<option value=4>1 in 100<option value=5>1 in 1,000<option value=6>1 in 1,000,000<option value=7>None</select>&nbsp;<button onclick='social_choice();'>&nbsp;Next&nbsp;</button>";
+	}
+	social_choice();
+}
+
+function social_choice()
+{	n.innerHTML = "<p>Which state is best for handling social contacts?  (Choose one then click Next to move on.)</p><p><input type='radio' name='s_choice' id='s_ch1' value=0><label for='s_ch1'>Tense, fired up for a fight, narrow focus, poor listening, narrow and inflexible thinking that doesn't change easily. (This is the fight or flight state.)</label></p><p><input type='radio' name='s_choice' id='s_ch2' value=0><label for='s_ch2'>Relaxed, assured, calm, able to show emotion appropriately, listening and responsive, able to see things from another's perspective, open minded.  (Giving time and attention without the fight or flight rush.)</label></p><button onclick='social_respond();'>&nbsp;Next&nbsp;</button>";  // XXX make one a default
+}
+
+function social_respond()
+{	if (document.all['s_ch1'].checked)
+	{	n.innerHTML = "<p>That's surely wrong.  You may feel it will help to express emotion, but if you're tense and pumped up for a fight you won't express much other than aggro.</p>";
+	}
+	else
+	{	n.innerHTML = "<p>Right.  How bad can it be?  You're unlikely to do anything more strenuous than sit or stand.  Be calm and you'll enjoy more respect from others.</p>";
+	}
+	n.innerHTML += "<p>Click Next to move on.</p><button onclick='social_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function social_exit()
+{	action_list();
+}
+
+// work
+function work_entry()
+{
+	work_immed();
+}
+
+function work_immed()
+{	n.innerHTML = "<p>Is there any chance that this extra work you may have to do will have to start in the next 30 seconds?</p><button onclick='work_reroute();'>&nbsp;Yes&nbsp;</button>&nbsp;<button onclick='work_iipe();'>&nbsp;No&nbsp;</button>";
+}
+
+function work_reroute()
+{	n.innerHTML = "<p>What a pity.  You'd better get started!  However, if you would rather continue with this analysis then just click Next.</p><button onclick='work_iipe();'>&nbsp;Next&nbsp;</button>";
+}
+
+function work_iipe()
+{	n.innerHTML = "<p>So, the good news is that nothing is needed immediately so there's definitely no need for adrenaline now because of the extra work.  If there's any need it will be in the future.</p><p>Is it possible that the work will involve an intense physical effort that's needed suddenly, with no gradual build up in intensity?</p><p>Before answering, consider these factors:</p><ul><li><p>The nature of the work - is it physical at all?</p></li><li><p>Duration - is it a brief, intense effort or will you in fact have to pace yourself over a longer period?</p></li><li><p>The link, if any, between intensity of physical effort and rate of progress.</p></li></ul><p>So, in your view, the chances that an intense physical effort will be needed are: <select id='work1'><option selected value=0>Certain<option value=1>1 in 2<option value=2>1 in 5<option value=3>1 in 10<option value=4>1 in 100<option value=5>1 in 1,000<option value=6>1 in 1,000,000<option value=7>None</select></p><button onclick='work_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function work_exit()
+{	action_list();
+}
+
+// speed
+function speed_entry()
+{
+	n.innerHTML = "<p>A feeling of time pressure is common and drives our stress response.  But it's amazing how rarely a fight or flight response actually helps us progress faster.</p><p>Most of the things we do are complicated enough that an adrenaline rush causes mistakes that make us slower overall.  We get stuck on problems we should be able to solve easily because we're too pumped up to think properly.  Today our progress usually depends on mental agility and focus, not muscular effort.</p>"
+	n.innerHTML += "<p>Which of the following best describes the activities you need to do quickly?  (Choose one then click Next to move on.)</p><p><input type='radio' name='sp_choice' id='sp_ch1' value=0><label for='sp_ch1'>No intense physical effort needed at all.</label></p><p><input type='radio' name='sp_choice' id='sp_ch2' value=0><label for='sp_ch2'>Periods when no intense physical effort is needed, with one or more periods when an intense physical effort is needed</label></p><p><input type='radio' name='sp_choice' id='sp_ch3' value=0><label for='sp_ch3'>All the activity requires intense physical effort.</label></p><button onclick='speed_respond();'>&nbsp;Next&nbsp;</button>";  // XXX make one a default
+}
+
+function speed_respond()
+{	if (document.all['sp_ch1'].checked)
+	{  // no IPE needed
+		n.innerHTML = "<p>OK, so no need for an intense physical effort.  That's typical of modern problems.  You can let go of those stress feelings and just focus on getting the job done and not getting distracted.</p><p>One caveat is that you should remember to take brief rest breaks instead of toiling away (perhaps at a computer) without a rest.  When you rest it feels like wasted time but in fact if you are resting regularly and frequently for around 10% of your time at work then your daily productivity is probably higher as a result.</p>";
+	}
+	else
+	{	if (document.all['sp_ch2'].checked)
+		{	// occasional IPEs needed
+			n.innerHTML = "<p>Interesting one.  This is the sort of thing we get when making a journey by public transport with some risky connections.  Most of the time you're just sitting or standing in some kind of vehicle, but occasionally it really is necessary to run to catch the train or bus.  What's the best strategy for that?</p><p>Well, obviously there's no point in being all pumped up during those periods when physical effort can make no difference at all to your rate of progress.  Just take it easy.  When the time comes to make an effort I suggest you start that effort gently if possible, and gradually increase your intensity.  Rely on the stimulus of the activity itself to get you fired up to just the right level, and no more.  Also, you cut your risk of injuring yourself if you start gently.</p>"		
+		}
+		else
+		{  // only IPE needed
+			n.innerHTML = "<p>So, it's one of those rare occasions where an intense physical effort really can move things along faster.  What's the best way to handle that?  First, is the effort required right now?  If not then while you are waiting to start there's no need for adrenaline.  Just let it go and wait.  Second, if you can, start gently and gradually increase your intensity so that the stimulus of the activity gets you fired up, instead of your anticipation.  If you let the activity get you going you are more likely to release just the right amount of stress hormones i.e. enough to help your physical performance, but not so much that there's loads of it still hanging around when you stop exerting.</p>";
+		}	
+	}
+	n.innerHTML += "<p>Click Next to move on.</p><button onclick='speed_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function speed_exit()
+{	action_list();
+}
+
+
+// other
+function other_entry()
+{
+	n.innerHTML = "<p>That's another thing nobody likes about unsettling events.  Not only are there often things to do to deal with them, but that takes time and energy away from other things you have to do.  Suddenly you feel you're behind on everything.</p><p>What I suggest you do is think for a moment about the important things you have to do that will lose out because of the demands created by this latest incident.  Then, click Next and think through 'Do extra work' and 'Speed up' <b>with the other activities in mind</b>.</p>";
+	n.innerHTML += "<p>Click Next to move on.</p><button onclick='other_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function other_exit()
+{	action_list();
+}
+
+
+function pain_entry()
+{
+	pain_immed();
+}
+
+function pain_immed()
+{	n.innerHTML = "<p>Is there any chance that this pain will hit you in the next 30 seconds?</p><button onclick='pain_reroute();'>&nbsp;Yes&nbsp;</button>&nbsp;<button onclick='pain_delay();'>&nbsp;No&nbsp;</button>";
+}
+
+function pain_reroute()
+{	n.innerHTML = "<p>I'm sorry to hear that.  To continue with this analysis then just click Next.</p><button onclick='pain_choice();'>&nbsp;Next&nbsp;</button>";
+}
+
+function pain_delay()
+{	n.innerHTML = "<p>That's good news.  If there's no pain immediately then you can relax about pain, at least for now.  Let's see if there's any role for the fight or flight response in dealing with pain.  To continue just click Next.</p><button onclick='pain_choice();'>&nbsp;Next&nbsp;</button>";
+}
+
+function pain_choice()
+{	n.innerHTML = "<p>Which state is best for handling pain?  (Choose one then click Next to move on.)</p><p><input type='radio' name='p_choice' id='p_ch1' value=0><label for='p_ch1'>Tense, anxious, awash with damaging stress hormones, perhaps temporarily focused elsewhere but eventually coming back to pain and anguish.  (This is the fight or flight state.)</label></p><p><input type='radio' name='p_choice' id='p_ch2' value=0><label for='p_ch2'>Relaxed, breathing deeply and slowly, focusing elsewhere if possible.  Calm.  (Without the fight or flight rush.)</label></p><button onclick='pain_respond();'>&nbsp;Next&nbsp;</button>";  // XXX make one a default
+}
+
+function pain_respond()
+{	if (document.all['p_ch1'].checked)
+	{	n.innerHTML = "<p>Other than very short term that's surely wrong.  A huge adrenaline pump can help you ignore pain, but sooner or later it will catch up with you.  Besides, it's easier to just relax, breathe deeply and slowly, and focus elsewhere.</p>";
+	}
+	else
+	{	n.innerHTML = "<p>Right.  Just relax, breathe deeply and slowly, and focus elsewhere.</p>";
+	}
+	n.innerHTML += "<p>Click Next to move on.</p><button onclick='pain_exit();'>&nbsp;Next&nbsp;</button>";
+}
+
+function pain_exit()
+{	action_list();
+}
+
+function stresscheck2()
+{	n.innerHTML = "<p>You've done well and concentrated far enough to get to this point.  How stressed are you feeling right now?  (Choose a stress level and click Next)</p><select id='stress2'><option selected value=0>Calm<option value=1>Slightly worried<option value=2>Anxious<option value=3>Stressed<option value=4>Panicky<option value=5>Frantic</select>&nbsp;<button onclick='clean_up();'>&nbsp;Next&nbsp;</button>";
+}
+
+function clean_up()
+{	stress_level2 = document.all['stress2'].value * 1;
+	send_results2();
+	if (stress_level2 < stress_level1) 
+	{	n.innerHTML = "<p>That's encouraging.  Your stress level seems to be down already.</p>";
+	}
+	else
+	{	if (stress_level2 == stress_level1)
+		{	n.innerHTML = "<p>No change in your stress level so far.  You're still feeling "+stress_grades[stress_level2]+".  The good news is that you've been thinking about the stressful event and its consequences but still you feel no worse.  You may need to repeat the analysis from time to time today.  Remember that your stress feelings also come from the stress chemicals that are already in your bloodstream so they need to be cleared up before you can really feel calm.</p>";
+		}	else
+		{	// stress level is worse than before
+			n.innerHTML = "<p>That's a bit disappointing.  Your stress level has increased so that now you feel "+stress_grades[stress_level2]+".  You may need to take a break then repeat the analysis and think a bit more about the logic of it.  Remember that your stress feelings also come from stress chemicals that are already in your bloodstream so they need to be cleared up before you can really feel calm.</p>";
+		}
+	}
+	n.innerHTML += "<p>Here are some things that will help remove the stress hormones from your blood and bring back calm.  Click on all that you plan to do.</p><p><input type='checkbox' id='clean1'><label for='clean1'>Cut out all artificial stimulants such as smoking, caffiene, violent or horrific TV/film.</label></p><p><input type='checkbox' id='clean2'><label for='clean2'>20 minutes or more of fairly vigorous exercise - or as much as you can do.</label></p><p><input type='checkbox' id='clean3'><label for='clean3'>A good night's sleep.</label></p><p><input type='checkbox' id='clean4'><label for='clean4'>Very deep relaxation for 20 - 30 minutes</label></p>";
+	n.innerHTML += "<p>Assuming you do the things you are planning to clear the excess stress chemicals out of your body, how stressed do you think you will feel when you've done them?  (Choose a stress level and click Next)</p><select id='stress3'><option selected value=0>Calm<option value=1>Slightly worried<option value=2>Anxious<option value=3>Stressed<option value=4>Panicky<option value=5>Frantic</select>&nbsp;<button onclick='good_bye();'>&nbsp;Next&nbsp;</button>";
+}
+
+function send_results2()
+{	document.sa_1.s_check_2.value = stress_level2;
+	if (real == 1) document.sa_1.submit();
+}
+
+
+function good_bye()
+{	stress_level3 = document.all['stress3'].value * 1;
+	send_results3();
+	var link_text = "";
+	link_text = "<p>Links:<br><br><a href='http://www.relaxonline.me.uk/sa1/index.html'>Start this again</a><br><br><a href='http://www.relaxonline.me.uk/'>Relax Online homepage</a><br><br><a href='http://www.workinginuncertainty.co.uk/omrealism.shtml'>An article about optimism, pessimism, and open-minded realism<br><br><a href='http://www.workinginuncertainty.co.uk/index.shtml'>Read about the author and his day job</a></p>";
+	if (stress_level3 < stress_level1 || stress_level3 == 0) 
+	{	n.innerHTML = "<p>That's good.  Do what you plan and perhaps go through the analysis we've just done in your mind when you feel it might help.  I look forward to chatting again.</p><p>That's the end.</p>" + link_text;
+	}
+	else
+	{	n.innerHTML = "<p>Your stress level hasn't got any better and you don't think it will.  Two possible reasons for this are (1) you really should be leaping up now to run or fight, or (2) you don't understand or don't agree with the ideas behind the analysis we've just been through.  I know it seems a bit odd that by thinking about your problems, and yet without finding a solution to them, you can still reduce your stress.  However, that's exactly what should be happening.  You can read more about this in papers on the Relax Online website, or just try the Stress Analysis again.</p><p>Thanks for having a go and I look forward to chatting again sometime.</p><p>That's the end.</p>" + link_text;
+	}
+}
+
+function send_results3()
+{	document.sa_1.s_check_3.value = stress_level3;
+	if (real == 1) document.sa_1.submit();
+}
+
+
+//--></SCRIPT>
+
+
+
+</body>
+</html>
